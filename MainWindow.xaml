@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Excel_XLSX_reader_writer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="150" Width="200">
     <Grid>
-        
+        <Button x:Name="runBTN" Content="Run" HorizontalAlignment="Left" Margin="63,46,0,0" VerticalAlignment="Top" Width="75" Click="RunBTN_Click"/>
+
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Excel_XLSX_reader_writer.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,23 @@ namespace Excel_XLSX_reader_writer
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void RunBTN_Click(object sender, RoutedEventArgs e)
+        {
+            // File open dialog box
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "Document";
+            //temp default path
+            dlg.InitialDirectory = @"C:\TEMP_SK\excel";
+
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                excelRead.ReadLargeFile(dlg.FileName);
+                // program completion
+                MessageBox.Show("Finished");
+            }
         }
     }
 }

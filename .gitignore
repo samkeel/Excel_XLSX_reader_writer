@@ -49,3 +49,6 @@ vs studio c# folders to ignore
 /Properties
 /obj
 /.vs
+/bin
+/packages
+*.csproj
