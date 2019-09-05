@@ -28,16 +28,20 @@ namespace Excel_XLSX_reader_writer
 
         private void RunBTN_Click(object sender, RoutedEventArgs e)
         {
+            string sheetName = "Sheet1";
             // File open dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document";
             //temp default path
-            dlg.InitialDirectory = @"C:\TEMP_SK\excel";
+            dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             bool? result = dlg.ShowDialog();
             if (result == true)
             {
-                excelRead.ReadLargeFile(dlg.FileName);
+                excelRead.ReadExcelFile(dlg.FileName, sheetName);
+                // Release all excel objects by running the GC after the excel module has completed.
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
                 // program completion
                 MessageBox.Show("Finished");
             }
