@@ -31,8 +31,7 @@ namespace Excel_XLSX_reader_writer
             string sheetName = "Sheet1";
             // File open dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = "Document";
-            //temp default path
+            dlg.FileName = ".xlsx";
             dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             bool? result = dlg.ShowDialog();

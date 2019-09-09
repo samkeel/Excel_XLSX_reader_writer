@@ -20,6 +20,7 @@ namespace Excel_XLSX_reader_writer.Model
             Excel.Application oXL;
             Excel._Workbook oWB;
             Excel._Worksheet oSheet;
+            // List to add excel values into
             List<IDataList> excelDataList = new List<IDataList>();
 
             try
@@ -28,29 +29,32 @@ namespace Excel_XLSX_reader_writer.Model
                 oXL = new Excel.Application();
                 oWB = (Excel._Workbook)(oXL.Workbooks.Open(fileName, UpdateLinks: false, ReadOnly: true));
                 oSheet = (Excel._Worksheet)oWB.ActiveSheet;
-                //Count of rows used
+                //Count of rows used  
                 int lastRow = oSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell).Row;
 
-                for (int i = 6; i <= lastRow; i++)
+                for (int i = 1; i <= lastRow; i++)
                 {
                     System.Array cellValues = (System.Array)oSheet.get_Range("A" + i.ToString(),
                            "T" + i.ToString()).Cells.Value2;
-                    excelDataList.Add(new dataList
+                    // Check if cells being returned are empty which return as null
+                    // if not null then add to list, else ignore row
+                    if((cellValues.GetValue(1, 2) ?? cellValues.GetValue(1, 3) ?? 
+                        cellValues.GetValue(1, 5) ?? cellValues.GetValue(1, 2)) !=null)
                     {
-                        stringValue1 = cellValues.GetValue(1, 2).ToString(),
-                        stringValue2 = cellValues.GetValue(1, 3).ToString(),
-                        stringValue3 = cellValues.GetValue(1, 5).ToString(),
-                        stringValue4 = cellValues.GetValue(1, 6).ToString()
-                    });
+                        excelDataList.Add(new dataList
+                        {
+                            stringValue1 = cellValues.GetValue(1, 2).ToString(),
+                            stringValue2 = cellValues.GetValue(1, 3).ToString(),
+                            stringValue3 = cellValues.GetValue(1, 5).ToString(),
+                            stringValue4 = cellValues.GetValue(1, 6).ToString()
+                        });
+                    }                    
                 }
             }
             catch
             {
-
+                //TODO: error handling
             }
-            string monkey = "fish";
-
         }
-
     }
 }
